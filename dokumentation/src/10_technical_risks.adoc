@@ -1,0 +1,15 @@
+[[section-technical-risks]]
+== Risiken und technische Schulden
+
+[role="arc42help"]
+****
+.Stakeholder Problem
+Die gewählte Architektur bzw. die Projektstruktur ist für die Anforderungen recht gut. Man könnte aber natürlich darüber streiten, wie die ausführliche Umsetzung der verschiedenen Rollen sein wird. Momentan werden Tutoren und Organisatoren genauso behandelt, wie andere Benutzer, was fachlich falsch ist. Auch würde der Code bei vielen Erweiterungen dieser Rollen recht unübersichtlich werden. Die Rollen dann auszusortieren wäre aber auch verwirrend, weil man dann Datenbank-Entitäten und Rollen vermischen würde.
+
+.Parallelität Problem
+Wir haben uns hier gegen das Verwenden von Messaging entschieden, weil unserer Ansicht nach das Programm zu klein und kompakt für Messaging (also dem Aufwand nicht gerecht wird). Trotzdem kann es passieren, dass ein Benutzer an zwei Geräten gleichzeitig versucht Urlaube zu buchen und so Probleme entstehen können.
+
+.Service Problem
+Unser Hauptgedanke war es, einen PraktikumsService zu implementieren, der mit Urlaubsservice und Klausurenservice-Methoden arbeiten kann und so Aufgaben übernimmt, in denen beide vorkommen. Denn es gibt Anwendungsfälle, bei denen anhand von Klausuren die Urlaube angepasst werden, oder welche, wo die Urlaubsbuchung nicht alle Kriterien (siehe Validierung) erfüllen muss, da eine Klausur bereits eingetragen ist. Das Poblem ist, dass bei der von uns gewählten Service-Struktur die Übersichtlichkeit und fachliche Trennung ganz schlecht ist. Außerdem funktioniert das Programm nicht korrekt, wenn man eine Klausur an einem Tag hat und versucht mehrere Urlaube zu buchen. Es ist nämlich momentan noch möglich dann mehrfach den gleichen Urlaub zu buchen. Um dies zu ändern wäre eine Änderung der Service-Struktur vorzunehmen, sodass der Urlaubservice in der Methode "anmelden" einen User und eine Liste von Klausuren annimmt. Dann würde die komplette Validierung für Urlaube im Urlaubservice liegen. Der Praktikumservice wäre quasi nur die Kommandozentrale, welche zwar noch immer Klausuren und Urlaube richtig handhabt, aber nicht wirklich Validierungslogik enthält. Leider schaffen wir es nicht eine solch große Änderung noch vor dem Abgabetermin umzusetzen.
+****
+

@@ -1,0 +1,34 @@
+[[section-building-block-view]]
+== Bausteinsicht
+
+[role="arc42help"]
+
+
+=== Whitebox Gesamtsystem
+
+[role="arc42help"]
+_**Siehe Ebene 1.puml**_
+
+Begründung:: Wir haben die Onion-Architektur gewählt, weshalb unser Programm
+in (fast) unabhängige Teilprogramme unterteilt worden konnte
+, die wir auf Richtigkeit prüfen, ändern und umsetzen konnten.
+
+Enthaltene Bausteine::
+|===
+| **Name** | **Verantwortung**
+| _spring_ | _Ist für das Starten des Programmes verantwortlich_
+| _db_ | _Speichert/lädt die Daten in/aus eine/r Datenbank_
+| _web_ | _Ist für die Webseite verantwortlich_
+| _application_ | _Simuliert die Buisnesslogik_
+| _core_ | _Hier finden sich die Objekte wieder, mit denen man im Programm zu tun hat_
+|===
+
+=== Ebene 2
+
+_**Siehe Ebene 2.puml**_
+
+
+
+
+
+

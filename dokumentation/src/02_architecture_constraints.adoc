@@ -1,0 +1,56 @@
+[[section-architecture-constraints]]
+== Randbedingungen
+=== 2.1 Technisch
+[role="arc42help"]
+****
+Einfach webbasierte Anwendung. Sollte in jedem handelsüblichen Browser problemlos laufen.
+//.Inhalt
+//- Arbeitszeitbereich ist 07.03.2022 - 25.03.2022, wobei jeden Tag von 9:30 Uhr bis 10:30 Uhr gearbeitet werden soll (Wochenende ausgeschlossen).
+//- Die Gruppengröße beträgt 4 Personen
+//- Verwendung der Onion-Architektur
+//- Es muss eine SpringBoot-Anwendung in Java implementiert werden
+//- Verwendung von Spring WebMVC
+//- Verwendung einer Datenbank
+//- Die Anwendung muss mit mehreren gleichzeitigen Requests umgehen können
+//- Es reicht, wenn die Anwendung beim Deployment konfiguriert werden kann. Zur Konfiguration gehören:
+//- Festlegen des Start- und Endzeitpunkt des Praktikums
+//- Festlegen der GitHub-Handles für Administrator:innen und Tutor:innen
+//- Die Anwendung darf nur von Personen verwendet werden, die sich mittels GitHub OAuth2 authentifiziert haben.
+//- Alle Änderungen am Urlaub müssen von der Anwendung protokolliert werden.
+//Das Audit-Log darf ausschließlich für Organisator:innen sichtbar sein.
+//Das Log soll in der Anwendung einsehbar sein und muss mindestens die folgenden Informationen enthalten:
+//* Welche Änderung durchgeführt wurde
+//* Wer eine Änderung durchgeführt hat
+//* Wann die Änderung durchgeführt wurde
+//- Ihr Code muss von Anfang an automatisiert auf GitHub bei jedem Push getestet werden.
+//
+//
+//
+//.Motivation
+//Die Motivation dahinter liegt in einer gut organisierten Projektarbeit die zu einem gut durchdachten Programm führen soll. Die Onion-Architektur hat den Zweck unser Programm in (fast) unabhängige Teilprogramme zu unterteilen, die wir auf Richtigkeit prüfen, ändern und umsetzen können.
+//
+//.Form
+//Einfache Tabellen der Randbedingungen mit Erläuterungen.
+//Bei Bedarf unterscheiden Sie technische, organisatorische und politische Randbedingungen oder übergreifende Konventionen (beispielsweise Programmier- oder Versionierungsrichtlinien, Dokumentations- oder Namenskonvention).
+//
+//
+//.Weiterführende Informationen
+//
+//Siehe https://docs.arc42.org/section-2/[Randbedingungen] in der online-Dokumentation (auf Englisch!).
+****
+
+=== 2.2 Organisatorisch
+
+****
+Vorgehensmodell: Mischung aus TDD und freier Entwicklung.
+Zuerst Backend dann Frontend.
+Testwerkzeuge: Junit und ArchUnit
+****
+
+=== 2.3 Konventionen
+
+****
+Architekturdokumentation: Gliederung nach dem arc42-Template.
+Sprache(Deutsch vs Englisch): Standardsprache beim Bennenen von Dingen ist Deutsch. Ausgenommen hiervon sind spezifische Begriffe
+wie Repository,Configurations etc. und andere Dinge die sich in deutscher Sprache nicht gut ausdrücken lassen.
+****

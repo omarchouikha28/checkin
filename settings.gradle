@@ -1,0 +1,5 @@
+include 'checkin_core'
+include 'checkin_application'
+include 'checkin_db'
+include 'checkin_spring'
+include 'checkin_web'

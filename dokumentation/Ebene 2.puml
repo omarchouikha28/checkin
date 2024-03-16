@@ -1,0 +1,79 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+
+package "application" {
+cloud {
+[PraktikumConfiguration]
+}
+[KlausurRepository]
+[UrlaubRepository]
+[UserRepository]
+[UrlaubService]
+[UserService]
+[KlausurService]
+
+}
+
+[UrlaubService] --> [UrlaubRepository]
+[UserService] --> [UserRepository]
+[KlausurService] --> [KlausurRepository]
+
+package "core"{
+
+[Zeitraum]
+[Klausur]
+[Urlaub]
+[User]
+[KlausurRef]
+[UrlaubRef]
+
+}
+
+[Klausur] --> [Zeitraum]
+[Urlaub] --> [Zeitraum]
+[User] --> [KlausurRef]
+[User] --> [UrlaubRef]
+[KlausurRef] --> [Klausur]
+[UrlaubRef] --> [Urlaub]
+
+package "db" {
+[DBKlausurRepository]
+[DBUrlaubRepository]
+[DBUserRepository]
+[KlausurRepositoryImpl]
+[UrlaubRepositoryImpl]
+[UserRepositoryImpl]
+[KlausurRefDTO]
+[UrlaubRefDTO]
+[UserDTO]
+[UrlaubDTO]
+[KlausurDTO]
+}
+
+[UserRepositoryImpl] --> [DBUserRepository]
+[UrlaubRepositoryImpl] --> [DBUrlaubRepository]
+[KlausurRepositoryImpl] --> [DBKlausurRepository]
+[KlausurRefDTO] --> [KlausurDTO]
+[UrlaubRefDTO] --> [UrlaubDTO]
+[UserRepositoryImpl] --> [UserDTO]
+[UrlaubRepositoryImpl] --> [UrlaubDTO]
+[KlausurRepositoryImpl] --> [KlausurDTO]
+
+package "spring" {
+[CheckinSpringApplication]
+}
+
+package "web" {
+cloud {
+[CheckinController]
+[KlausurController]
+[UrlaubController]
+}
+cloud {
+[MethodSecurityConfiguration]
+[WebSecurityConfiguration]
+}
+}
+
+@enduml

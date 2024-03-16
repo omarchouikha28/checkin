@@ -1,0 +1,15 @@
+server:
+  port: 8080
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
+
+checkin:
+  rollen:
+    orga: rut1ecfenkolk, iTitus, SherinSchneider
+    tutor: omarchouikha28

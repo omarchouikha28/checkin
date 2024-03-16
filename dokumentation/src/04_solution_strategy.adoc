@@ -1,0 +1,29 @@
+[[section-solution-strategy]]
+== Lösungsstrategie
+
+[role="arc42help"]
+
+=== Aufbau
+
+Checkin ist als Java-Programm mit main-Routine realisiert.
+Es zerfällt grob in folgende Teile:
+
+* Implementierung einer Datenbank mit Benutzung von Docker und Flyway
+* Datenstrukturen die als Aggregate modelliert sind, welche das Laden
+und Speichern, sowie das validieren der Eingaben erleichtern.
+* Services, welche die Interaktionen des Nutzers simulieren und somit
+das Arbeiten mit den Aggregaten erleichtert.
+* Einer Webseitenimplementierung, welche dem Benutzer die Möglichkeit
+gibt seine Daten einzugeben und somit Urlaube und Klausuren anmelden kann.
+
+Außerdem haben wir mit Spring gearbeitet, was uns das Arbeiten mit Testings
+und Controllern vereinfacht hat.
+
+Mit Thymeleaf wurde die Zusammenarbeit zwischen Controllern und Html Dateien
+auch angenehmer.
+
+=== Qualitätsziele
+
+Diese wurden ausführlich in Punkt 1.2 beschrieben.
+
+

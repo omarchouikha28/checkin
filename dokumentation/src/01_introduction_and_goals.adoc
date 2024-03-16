@@ -1,0 +1,115 @@
+//[[section-introduction-and-goals]]
+//==	Einführung und Ziele
+//
+//[role="arc42help"]
+//****
+//Beschreibt die wesentlichen Anforderungen und treibenden Kräfte, die bei der Umsetzung der Softwarearchitektur und Entwicklung des Systems berücksichtigt werden müssen.
+//
+//Dazu gehören:
+//
+//* zugrunde liegende Geschäftsziele,
+//* wesentliche Aufgabenstellungen,
+//* wesentliche funktionale Anforderungen,
+//* Qualitätsziele für die Architektur und
+//* relevante Stakeholder und deren Erwartungshaltung.
+//****
+=== 1. Einführung und Ziele
+=== 1.1 Aufgabenstellung
+
+
+[role="arc42help"]
+****
+Die Anwendung soll die Freistellung von Studenten während des Praktikums automatisch verwalten.
+Sie dient dazu die Organisatoren zu entlasten und den zuvor hohen manuellen Aufwand zu minimieren.
+Die Anwendung soll einfach zu bedienen sein und dem Nutzer möglichst einfach ermöglichen seine Freistellung zu verwalten.
+Jeder Nutzer hat dabei 4 Stunden Urlaub die er buchen kann um vom Praktikum für einen bestimmten Zeitraum freigestellt werden zu sein.
+
+//Sie bekommen einen Tag (= 4 Stunden) Urlaub in den drei Wochen.
+//Außerdem stellen wir Sie für Klausuren, die Sie in dem Praktikumszeitraum schreiben frei.
+//Für Präsenzklausuren werden Sie zur An- und Abreise zur Universität
+//vor und nach der eigentlichen Klausur zusätzlich 2 Stunden freigestellt.
+//Bei Onlineklausuren stellen wir Sie zusätzlich zur eigentlichen Zeit 30 Minuten vor Klausurbeginn frei.
+//
+//Bevor Studierende eine Klausur, die sie schreiben, eintragen können, muss diese erst global im System angelegt werden. Dazu werden folgende Informationen benötigt:
+//- Name des Fachs
+//- Klausurtermin: Datum und Uhrzeit
+//- Informationen, ob es eine Präsenzklausur ist (ja/nein)
+//- Die zugehörige Veranstaltungs-ID aus dem LSF
+//Klausuren können von allen Nutzer:innen des Systems angelegt werden. Die Veranstaltungs-ID aus dem LSF muss gültig sein.
+//
+//Studierende können bis zu vier Stunden Urlaub nehmen. Der Urlaub kann in Blöcken genommen werden.
+//Die Länge der Zeitblöcke beträgt ein Vielfaches von 15 Minuten.
+//Die Startzeiten für einen Block sind immer ganze Viertelstunden, also 00, 15, 30 oder 45.
+//Es muss sichergestellt werden, dass trotz der Möglichkeit Urlaub zu nehmen, ein einigermaßen effektives Arbeiten möglich ist.
+//Es sollte also nicht passieren, das Studierende im Wechsel 15 Minuten Urlaub nehmen und 15 Minuten arbeiten.
+//Daher gibt es folgende Regeln für den Urlaub:
+//- An einem Tag kann ein Urlaubsblock liegen, der frei gewählt werden kann.
+//Der Urlaubsblock kann entweder den ganzen Tag dauern oder höchstens 2,5 Stunden.
+//- An einem Tag können zwei Urlaubsblöcke genommen werden,
+//diese müssen aber am Anfang und am Ende eines Tages liegen und es müssen mindestens 90 Minuten Arbeitszeit dazwischen sein.
+//- Wenn an dem Tag eine Klausur im Praktikumszeitraum geschrieben wird,
+//dann kann der Urlaub an diesem Tag vollkommen frei eingeteilt werden.
+//
+//Für die Zeit einer Klausur muss kein Urlaub genommen werden.
+//Wenn ein Urlaub eingetragen ist und eine Klausuranmeldung für einen überlappenden Zeitraum erfolgt,
+//dann wird der Urlaub automatisch reduziert. Analog wird Urlaub bei der Anmeldung automatisch reduziert,
+//wenn eine Klausuranmeldung vorliegt, die sich mit dem Urlaubsantrag überschneidet.
+//
+//Pläne ändern sich und daher soll das System auch die Stornierung von Urlaub bzw. das Abmelden von Klausuren ermöglichen.
+//Sowohl Urlaub, als auch die Klausurteilnahme kann von den Studierenden selber bis zum Vortag des Urlaubs storniert werden.
+//Eine Stornierung des Urlaubs am Urlaubstag ist nur durch die Tutor:innen oder Organisator:innen möglich.
+//Die Anwendung muss sicherstellen, dass Urlaube und Klausuren durch Studierende niemals nachträglich storniert werden können.
+//
+//Die Anwendungsfälle für Tutoren:innen und Organisator:innen müssen nicht implementiert werden.
+//Es muss ausschließlich gezeigt werden, dass verschiedene Rollen verschiedene Zugänge haben.
+//
+//
+//.Motivation
+//Die Motivation, ein neues Programm als solches zu entwickeln ist es, für zukünftige Projekte organsisierter und besser zu arbeiten. Vor allem liegt der Anspruch darin das Programm gut modifizierbar, lesbar und "sicher" zu gestalten.
+//
+//.Form
+//Das Programm soll in Form einer Webanwendung umgesetzt werden.
+
+
+
+****
+
+=== 1.2 Qualitätsziele
+
+[role="arc42help"]
+****
+
+Zu den von uns angestrebten Qualitätszielen gehört z.B. die Funktionalität. Es soll dem Benutzer eine vollständige Kontrolle über das Verwalten seiner Urlaube und Klausuren gewährleistet werden. Das Ziel ist es eindeutige Tests zu entwickeln, die dies sicherstellen.
+
+Dabei achten wir vor allem auch auf die Benutzbarkeit. Darunter verstehen wir das Sicherstellen des Verwendens auch von Personen die z.B. unter einer sehtechnischen Einschränkung leiden. Daher ist es auch vor allem wichtig angemessene Fehlermeldungen und Namen zu wählen, um so eine gute Orientierung auf der Website zu gewährleisten.
+
+Des weiteren ist die Sicherheit auch ein essenzieller Aspekt, auf den geachtet wird. Ziel ist es eine Anwendung für verschiedene Benutzer personalisiert zu gestalten. Zudem soll es Personen mit besonderen Rollen geben, die anders auf das Programm zugreifen können. Wir verwenden die Github-Authentifizierung hierfür.
+
+Etwas, was dem Benutzer auf dem ersten Blick nicht auffällt ist die Wartbarkeit des Programms. Hier ist es wichtig, gute Namen zu wählen, die Kontextabgrenzung gut umzusetzen und allgemein keine Code-Smells im Code zu haben. Das soll das Arbeiten im Team und das Nacharbeiten vereinfachen.
+
+Performance wird zu dem auch einbedacht, ist jedoch bei der Größe des Programms nicht der primäre Orientierungsaspekt.
+
+****
+
+=== 1.3 Stakeholder
+
+[role="arc42help"]
+****
+.Rollenüberblick
+Es müssen drei Stakeholder in der Anwendung implementiert sein:
+
+Die Studierenden nutzen die Anwendung, um geplante Fehlzeiten einzutragen.
+Sie können in der Anwendung eintragen, wann sie Klausuren schreiben bzw. wann sie Urlaub einplanen wollen.
+Sie bekommen eine Übersicht über ihren "Resturlaub".
+
+Die Tutor:innen haben die Aufgabe, die Anwesenheit der Teilnehmer:innen zu überprüfen.
+Dazu tragen sie ein, wenn Studierende fehlen.
+Die Anwendung soll Tutor:innen einen Überblick über die geplanten Fehlzeiten ermöglichen.
+
+Die Organisator:innen müssen am Ende des Praktikums die Anwesenheit der Studierenden überprüfen.
+Die Anwendung soll daher eine Reporting-Funktion haben, die anzeigt, ob Studierende zu oft abwesend waren.
+
+
+****
+
+

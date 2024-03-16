@@ -1,0 +1,45 @@
+[[section-runtime-view]]
+== Laufzeitsicht
+
+
+****
+
+[role="arc42help"]
+
+Starten des Programmes:
+
+* Ablauf:  Der Benutzer gibt die "/" URL ein und muss zuerst sein GitHub Account verknüpfen.
+Dadurch bekommt er eine Rolle zugewiesen und bekommt die Startseite angezeigt,
+* Im Hintergrund: Man arbeite nun in den Controllern mit einem UserObject, wodurch man ein Objekt "User" erstellen kann
+welches identifiziert, welcher Benutzer zurzeit das Programm benutzt. Der Benutzer kann auch
+kategorisiert werden und bekommt je nach Authentifizierung andere Rechte.
+
+Das Anmelden eines Urlaubes:
+
+* Ablauf: Der Benutzer drückt auf den "Urlaub anmelden Knopf" und wird auf eine Seite
+weitergeleitet, wo er seine Daten für den Urlaub eingeben kann. Nachdem er dies getan hat,
+wird er auf die Startseite zurückgebracht, wo dann sein Urlaub sichtbar ist. Wenn die
+Daten fehlerhaft waren, bleibt er auf der Seite und bekommt den Grund angezeigt, wieso
+er seine Eingabe nochmal überarbeiten soll.
+
+* Im Hintergrund: Mit Zusammenarbeit zwischen Controllern und Html Dateien kommt der
+Benutzer über Knopfdrücke auf verschiedene Seiten und mit Hilfe von Thymeleaf werden
+die Daten des Nutzers einfach zwischen Controllern und Html Dateien genutzt. Man arbeite
+hier mit Services und schaue, ob die Eingaben richtig sind. Wenn dies der Fall ist, werden
+die Daten in der Datenbank abgespeichert und auf der Startseite dann für den derzeitigen
+Benutzer angezeigt.
+
+(Das Anmelden und Anlegen einer Klausur verläuft sehr ähnlich)
+
+Das Stornieren eines Urlaubes:
+
+* Ablauf: Der Benutzer drückt auf den roten stornieren-Knopf und der jeweilige Urlaub
+wird gelöscht und nicht mehr angezeigt.
+
+* Im Hintergrund: Voraussetzung dafür ist ein gespeicherter Urlaub. Der Urlaub wird aus
+Datenbank gelöscht und wird nicht mehr in der Tabelle angezeigt. Zudem ändert sich die Anzahl
+der Minuten der Resturlauben.
+
+(Dies ist wieder ähnlich beim Löschen einer Klausur)
+
+

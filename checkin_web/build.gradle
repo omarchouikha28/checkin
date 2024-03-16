@@ -1,0 +1,46 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
+plugins {
+    id 'org.springframework.boot' version '2.6.4' apply false
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':checkin_core')
+    implementation project(':checkin_application')
+
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.6.4'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.6.4'
+    implementation 'org.springframework.boot:spring-boot-starter-security:2.6.4'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client:2.6.4'
+    implementation 'org.springframework.security:spring-security-test:5.6.2'
+
+    compileOnly 'org.springframework.boot:spring-boot-devtools:2.6.4'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.4'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:2.6.4'
+    testImplementation 'com.tngtech.archunit:archunit:0.23.1'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom SpringBootPlugin.BOM_COORDINATES
+    }
+}

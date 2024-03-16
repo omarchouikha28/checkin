@@ -1,0 +1,66 @@
+[[section-concepts]]
+== Querschnittliche Konzepte
+
+[role="arc42help"]
+****
+.Abhängigkeiten zwischen Modulen
+Unsere Checkin-Anwendung soll so entwickelt werden, dass diese auch in Zukunft ergänzt, oder auch verändert werden kann. Daher sind die Module über Schnittstellen lose gekoppelt. Module sind Implementierungen von Java-Schnittstellen. Java-Klassen, welche Teile benötigen, signalisieren dies über entsprechende Methoden, wie z.B. getter-Methoden. Die Klassen in den einzelnen Modulen sind so abgestimmt, dass sie die Informationen auf dem einen Ende liefern können und auf dem anderen Ende auch empfangen können. Bestimmte Module haben auch nur Zugriff auf bestimmte andere Module. Die Informationsliefermethoden kümmern sich nicht selbst um das Auflösen einer Abhängigkeit, indem sie beispielsweise Exemplare mit new bauen, oder eine Factory bemühen. Stattdessen löst der Verwender die Abhängigkeiten auf, indem er passende Implementierungen erzeugt und über die Setter-Methoden zusammensteckt (Dependency Injection, kurz DI). Dies findet man im gesamten Programm.
+
+.Konfiguration
+Bei der Checkin-Anwendung ist es möglich Aufgaben-bestimmte Werte zu verändern. Zu diesen Werten gehören das Startdatum, die Schichtanfangszeit, das Enddatum, die Schichtendszeit und die Anzahl an Minuten, welche ein Benutzer Urlaub buchen kann. Sollte die Anwendung auch in Zukunft verwendet werden, kann das Programm so wieder verwendet werden. Der weitere Zugriff auf diese Daten im Code, wird über die Klasse PraktikumConfigurations, welcher im Application-Layer liegt, gemacht. Dies bedeutet, dass nur die Serviceklassen auch Zugriff auf diese Daten haben, was auch so vorgesehen ist, denn nur diese Klassen entscheiden, ob Urlaube und Klausuren gültig sind. Dabei wird in den Service-Klassen ein PraktikumConfigurations-Objekt angelegt und es wird  auf diesem mittels getter auf die jeweiligen Informationen zugegriffen. Diese Art von Implementierung hatte zudem den Vorteil, dass wir für alle Service-Klassen Tests schreiben können, welche mit einem bestimmten PraktikumsConfigurations-Objekt arbeiten, d.h. dass die Tests auch zuverlässig in der Zukunft nach Praktikumsende funktionieren, da alle Daten in den Tests fest definiert werden.
+
+.Domänenmodell
+Das Domänenmodell wurde in diesem Projekt recht simpel gehalten. Wir haben es hier mit Urlauben, Klausuren und Usern. Ein User hat eine Menge von Klausuren und Urlauben, welche wiederum die Hilfsklasse Zeitraum verwenden. Denn jeder Urlaub und jede Klausur befindet sich an einem Tag und in einem bestimmten Zeitraum.
+
+[plantuml,activity,svg,align="center"]
+----
+include::domain.puml
+----
+
+.Benutzeroberfläche
+Da wir es hier mit einer Webanwendung zu tun haben, gibt es auch die Benutzeroberfläche, welche eine große Rolle spielt.
+Wenn man sich über Github authentifiziert hat, landet man auf der Startseite, welche dem Benutzer einen Überblick über angemeldete Urlaube und Klausuren gibt. Alles wird in Form von Tabellen dargestellt, da man so direkt die Daten der Urlaube und Klausuren feststellen kann. Falls man sich von einer Klausur, oder einem Urlaub verabschieden möchte, kann man das in der jeweiligen Zeile für den Eintrag machen. Bei den Klausuren gibt es zudem eine Nachricht, die einem Beschied gibt, wenn man sich noch für keine Klausur angemeldet hat. Zudem gibt es unten zwei Knöpfe, welche für das Anmelden eines Urlaubs und einer Klausur zuständig sind.
+
+Über das gesamte Programm gibt es eine Navigationsleiste oben links, welche dem Benutzer das Orientieren in der Webanwendung erleichtern soll.
+
+Es gibt sowohl für das Hinzufügen eines Urlaubs, als auch einer Klausur eine separate Seite, welche als Formular umgesetzt wurde und einfach die jeweils notwendige Informationen entgegennimmt.
+Beim Anmelden für eine Klausur ist jedoch im Gegensatz zum Urlaub ein Zwischenschritt notwendig. Man kann sich nur zu bereits eingetragenen Klausuren eintragen. Dementsprechend kann es vorkommen, dass die zu eintragende Klausur noch nicht hinzugefügt wurde. In dem Fall gibt es einen Link von wo aus man zu dem Formular (eben angesprochen) weitergeleitet wird.
+Eine kurze Nachricht betont noch kurz, dass man bestätigen muss, dass man auch tatsächlich für die Klausur angemeldet ist.
+
+Sollte man eine Klausur, oder Urlaub anmelden wollen, welcher nicht gültig ist, dann wird das Formular geleert und es werden entsprechende Fehler ausgegeben, woran es gelegen hat.
+
+Für Tutoren und Organisatoren gibt es ebenfalls besondere Seiten, die mit /tutor und /organisator adressiert werden können. Dort wird jedoch bis auf ein Text nichts weiter dargestellt!
+
+.Validierung und Fehlerhandhabung
+Sowohl für die Urlaube, als auch für die Klausuren
+gibt es ausführliche Validierungen. Diese werden im Application-Layer in den entsprechenden Services getätigt.
+
+Bei Klausuren achtet das Programm nicht, auf Überschneidungen, die Anzahl an Klausuren am Tag, oder auf die Gültigkeit der Zeiten. Deswegen findet die Validierung nur beim Hinzufügen einer Klausur statt. Im klausurService wird geprüft, ob die ID der angegebenen Klausur im LSF vorhanden ist. Hier wird die Konsistenz der Linkgestaltung des LSF ausgenutzt. Dabei wird geprüft, ob ein Veranstaltungseintrag im LSF mit der gegebenen ID existiert. Des Weiteren wird geprüft, ob es sich bei dem Veranstaltungseintrag im LSF auch um den Typ Klausur handelt. Der letzte Fehler, der beim Klausuranlegen passieren kann ist, dass man versucht eine Klausur zu hinzufügen, welche bereits hinzugefügt wurde. Hierfür wird lediglich die ID aller bereits gespeicherten Klausuren geprüft.
+
+Bei Urlauben ist das Thema Validierung ein größeres Thema, da hier nicht nur geprüft werden muss, ob der Urlaub an sich stimmig ist, sondern auch, ob dieser kollidiert, bzw. die Anzahl an Urlauben an einem Tag bestimmte Bedingungen festlegt. Um eine Übersicht zu liefern ist hier eine Liste von Fehlern bezüglich Urlauben an sich:
+
+* der Urlaubstag liegt am Wochenende
+* Der Urlaubstag geht über das Praktikumsende hinaus
+* Der Urlaubsanfang ist zeitlich vor Schichtbeginn
+* Das Urlaubsende ist zeitlich nach Schichtende
+* Der Urlaubsstart**zeitpunkt** liegt in der Vergangenheit
+* Der eingetragene Urlaub wurde nicht im Viertelstundentakt (d.h. 00, 15, 30 und 45) eingetragen
+* Der Anfang des Urlaubs liegt nicht vor dem Ende des Urlaubs
+
+Zusätzlich passt das Programm darauf auf, dass bei mehreren Urlauben an einem Tag folgendes eingehalten wird:
+
+* Wenn Urlaube sich überschneiden (vor oder nach), werden diese kombiniert und die Kombinierung wird geprüft (s.o). Bei einem Fehler wird die Ausgangssituation wiederhergestellt.
+* Sollte der Urlaub komplett in einem anderen Urlaub liegen wird nicht gemacht
+* Sollten am Ende zwei Urlaube existieren die nicht am Anfang und am Ende liegen, wird die Ausgangssituation wiederhergestellt werden.
+* Sollte am Ende der Benutzer nicht genug Resturlaub haben, wird die Ausgangssituation wiederhergestellt.
+* Geht der neue Urlaub über beide Grenzen eines alten Urlaubs, wird der alte gelöscht und der neue eingefügt. Sollte der neue jedoch nicht gültig sein, wird die Ausgangssituation wiederhergestellt
+
+Hat der Benutzer sich für eine Klausur an einem Tag angemeldet, können bis auf die grundlegenden Zeitregeln, jede Regel gebrochen werden. Sollte der Benutzer sich doch entscheiden, die Klausur zu löschen, werden alle Urlaube an diesem Tag bezüglich dieser Person auch gelöscht, da sonst nicht sichergestellt werden kann, dass diese auch gültig sind (Sonderreglungen fallen weg)
+
+.Logging
+Würde die Anwendung weiter in Entwicklung bleiben, würden auch die Rollen Tutor und Organisator weiter implementiert werden. Diese bräuchten den Zugang zu einer Log-Datei, welche genau angibt, wann welcher Urlaub gebucht bzw. gelöscht wurde. Auch Klausurenbuchungen bzw. -stornierungen sind von Interesse. So haben wir im Projektverzeichnis eine log.txt-Datei, welche diese Informationen angibt. Beispiel: +
+2022-03-27T19:19:58.639874100: DenKue hat folgenden Urlaub angemeldet: datum=2022-04-08, zeitspanne= 09:30 - 13:30 Uhr
+
+.Testing
+Das Programm ist kleinschrittig aufgebaut und jede einzelne "Ebene" wurde mittels entsprechenden Tests geprüft. Auf den höheren Ebenen wurden die unteren Ebenen mit mockito gemockt, da diese aufgrund ihrer eigenen Tests gültig sind.
+Für Tests wurde eine eigene H2-Datenbank aufgestellt, welche die der Performance beim Testen entgegenkommt.

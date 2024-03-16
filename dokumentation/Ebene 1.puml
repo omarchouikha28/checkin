@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+
+package "System: Checkin" {
+
+  [application] <<subsystem>>
+  [core] <<subsystem>>
+  [db] <<subsystem>>
+  [spring] <<subsystem>>
+  [web] <<subsystem>>
+}
+
+[spring] --> [web]
+[spring] --> [db]
+[spring] --> [application]
+[web] --> [core]
+[web] --> [application]
+[db] --> [core]
+[db] --> [application]
+[application] --> [core]
+@enduml

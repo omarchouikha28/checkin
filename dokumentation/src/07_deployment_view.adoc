@@ -1,0 +1,13 @@
+[[section-deployment-view]]
+== Verteilungssicht
+
+[role="arc42help"]
+****
+.Inhalt
+
+Die von uns entwickelte Anwendung ist keine große Anwendung und läuft lokal auf dem Rechner. Auf dem Rechner muss jedoch Docker installiert sein, denn die Datenbank, welche die Urlaube, die Klausuren und die Benutzer archiviert, läuft auf Docker. Dementsprechend muss auch vor Start der Webanwendung die docker-compose.yaml im Projektverzeichnis gestartet werden. Wir verwenden MariaDB für die Datenbank
+
+****
+
+
+

@@ -1,0 +1,8 @@
+[[section-design-decisions]]
+== Architekturentscheidungen
+
+[role="arc42help"]
+****
+.Inhalt
+Das Wählen von Submodulen ist nicht vorgegeben, war für uns aber ein guter Weg noch mehr Struktur in das Projekt zu bringen. Durch das Einschränken der Schnittstellen, gab es an einigen Stellen Probleme auf bestimmte Module in anderen Modulen zuzugreifen (trotz Einbindung in der jeweiligen build.gradle-Datei). Auch bestanden wir darauf, Dependency Injection dort zu verwenden, wo wir es verwenden konnten. Dies sollte vor allem das Testen erleichtern
+****

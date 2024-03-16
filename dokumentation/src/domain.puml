@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class User
+class Klausur
+class Urlaub
+class Zeitraum
+
+User --> Klausur
+User --> Urlaub
+Klausur --o Zeitraum
+Urlaub --o Zeitraum
+
+@enduml

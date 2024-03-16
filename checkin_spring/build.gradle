@@ -1,0 +1,27 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':checkin_web')
+    implementation project(':checkin_application')
+    implementation project(':checkin_db')
+
+    implementation 'org.springframework.boot:spring-boot-starter:2.6.4'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.4'
+    testImplementation 'com.tngtech.archunit:archunit-junit5:0.22.0'
+    runtimeOnly 'com.h2database:h2:2.1.210'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
